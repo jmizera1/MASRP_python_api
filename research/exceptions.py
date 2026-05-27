@@ -1,6 +1,3 @@
-from exceptions import Exception
-
-
 class APIError(Exception):
     """Custom exception for API errors."""
 
