@@ -25,7 +25,7 @@ The easiest way to upload an experiment is to load your results from a CSV into 
 
 ```python
 import pandas as pd
-from research.client import ResearchClient
+from research import ResearchClient
 
 # 1. Load your results
 df = pd.read_csv("jade_inform_results.csv")
@@ -93,8 +93,8 @@ with ResearchClient(api_key="YOUR_API_KEY") as client:
 If you are running live simulations in Python and want to build the payload incrementally, you can use the built-in Pydantic models for strict local validation.
 
 ```python
-from research.client import ResearchClient
-from research.models import ExperimentPayload, ResultRow, MetricValue
+from research import ResearchClient
+from research import ExperimentPayload, ResultRow, MetricValue
 
 rows = []
 
@@ -141,7 +141,7 @@ with ResearchClient(api_key="YOUR_API_KEY") as client:
 The SDK provides a custom `APIError` exception that cleanly catches HTTP errors and displays the specific validation message from the FastAPI backend.
 
 ```python
-from research.exceptions import APIError
+from research import APIError
 
 try:
     client.create_full_experiment(bad_payload)
