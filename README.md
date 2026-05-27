@@ -11,11 +11,11 @@ This SDK provides a clean, pythonic interface for researchers to authenticate an
 Since this package is distributed via Git, you can install or update it directly using `pip`:
 
 ```bash
-pip install git+[https://https://github.com/jmizera1/MASRP_python_api.git](https://https://github.com/jmizera1/MASRP_python_api.git)
+pip install git+https://github.com/jmizera1/MASRP_python_api.git
 ```
 
 > **Note:** To upgrade to the latest version later, run:
-> `pip install --upgrade git+https://https://github.com/jmizera1/MASRP_python_api.git@main`
+> `pip install --upgrade git+https://github.com/jmizera1/MASRP_python_api.git@main`
 
 ---
 
