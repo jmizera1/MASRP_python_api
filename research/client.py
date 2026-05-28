@@ -31,9 +31,10 @@ class ResearchClient:
         response = self._client.get("/metrics")
         return self._handle_response(response)
 
-    def create_full_experiment(self, experiment: ExperimentPayload) -> Dict:
+    def create_full_experiment(self, experiment: ExperimentPayload, is_hidden: bool = True) -> Dict:
         """Post a strictly validated Pydantic experiment payload."""
         # model_dump() converts the Pydantic objects safely into a JSON-ready dict
+        experiment.is_hidden = is_hidden
         response = self._client.post("/experiments/full", json=experiment.model_dump())
         return self._handle_response(response)
 
@@ -45,6 +46,7 @@ class ResearchClient:
         metric_mapping: Dict[str, int],
         constant_params: Optional[Dict[str, Any]] = None,
         column_mapping: Optional[Dict[str, str]] = None,
+        is_hidden: bool = True,
     ) -> Dict:
         """
         Magically ingest a Pandas DataFrame into the database.
@@ -53,6 +55,7 @@ class ResearchClient:
         :param metric_mapping: Maps DF column names to Metric IDs (e.g., {"Mean latency": 13})
         :param constant_params: Values applied to EVERY row (e.g., {"platform_name": "JADE"})
         :param column_mapping: Maps DF base columns to expected names (e.g., {"No of agents": "number_of_agents"})
+        :param is_hidden: Whether the experiment should be hidden
         """
         constant_params = constant_params or {}
         column_mapping = column_mapping or {}
@@ -97,7 +100,7 @@ class ResearchClient:
             rows=parsed_rows,
         )
 
-        return self.create_full_experiment(payload)
+        return self.create_full_experiment(payload, is_hidden=is_hidden)
 
     def close(self):
         self._client.close()
