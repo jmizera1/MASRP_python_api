@@ -26,3 +26,4 @@ class ExperimentPayload(BaseModel):
     selected_metric_ids: List[int]
     rows: List[ResultRow]
     user_id: int = 0
+    is_hidden: bool = False
